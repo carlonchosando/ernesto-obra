@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyecto de Obra – Documentación Técnica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a2332 0%, #0d1117 100%);
+      border-bottom: 1px solid #21262d;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(35, 134, 54, 0.15);
+      border: 1px solid rgba(35, 134, 54, 0.4);
+      color: #3fb950;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #8b949e;
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .section-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1rem;
+    }
+
+    .doc-card {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .doc-card:hover {
+      border-color: #388bfd;
+      background: #1c2230;
+      transform: translateY(-2px);
+    }
+
+    .doc-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .doc-info { flex: 1; }
+
+    .doc-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8b949e;
+      margin-bottom: 0.2rem;
+    }
+
+    .doc-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e6edf3;
+      line-height: 1.35;
+      margin-bottom: 0.3rem;
+    }
+
+    .doc-desc {
+      font-size: 0.8rem;
+      color: #8b949e;
+      line-height: 1.4;
+    }
+
+    .arrow {
+      color: #30363d;
+      font-size: 1rem;
+      align-self: center;
+      transition: color 0.2s;
+    }
+
+    .doc-card:hover .arrow { color: #388bfd; }
+
+    footer {
+      text-align: center;
+      color: #484f58;
+      font-size: 0.78rem;
+      padding: 2rem;
+      border-top: 1px solid #21262d;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">📋 Documentación Técnica</div>
+  <h1>Proyecto de Obra</h1>
+  <p>Conjunto de documentos técnicos y presupuestarios del proyecto de construcción</p>
+</header>
+
+<main>
+  <p class="section-title">Documentos del proyecto</p>
+  <div class="docs-grid">
+
+    <a class="doc-card" href="00_Resumen_Maestro_Proyecto.html">
+      <div class="doc-icon" style="background:rgba(56,139,253,0.15); color:#388bfd;">🗂️</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 00</div>
+        <div class="doc-title">Resumen Maestro del Proyecto</div>
+        <div class="doc-desc">Visión general y síntesis ejecutiva de toda la documentación</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="01_analisis_arquitectonico.html">
+      <div class="doc-icon" style="background:rgba(163,113,247,0.15); color:#a371f7;">🏛️</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 01</div>
+        <div class="doc-title">Análisis Arquitectónico</div>
+        <div class="doc-desc">Tipología estructural, superficies y descripción del proyecto</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="02_computo_metrico_total.html">
+      <div class="doc-icon" style="background:rgba(210,153,34,0.15); color:#d2a520;">📐</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 02</div>
+        <div class="doc-title">Cómputo Métrico Total</div>
+        <div class="doc-desc">Mediciones detalladas de todos los rubros de la obra</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="03_presupuesto_profesional.html">
+      <div class="doc-icon" style="background:rgba(35,134,54,0.15); color:#3fb950;">💰</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 03</div>
+        <div class="doc-title">Presupuesto Profesional</div>
+        <div class="doc-desc">Presupuesto detallado con materiales y mano de obra</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="04_plan_ejecucion_mmo.html">
+      <div class="doc-icon" style="background:rgba(248,81,73,0.15); color:#f85149;">📅</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 04</div>
+        <div class="doc-title">Plan de Ejecución – MMO</div>
+        <div class="doc-desc">Cronograma de obra y mano de obra por etapas</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="05_logistica_y_seguridad.html">
+      <div class="doc-icon" style="background:rgba(249,117,18,0.15); color:#f97316;">🦺</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 05</div>
+        <div class="doc-title">Logística y Seguridad</div>
+        <div class="doc-desc">Plan de organización, seguridad e higiene en obra</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="doc-card" href="06_documento_tecnico_integral.html">
+      <div class="doc-icon" style="background:rgba(56,189,248,0.15); color:#38bdf8;">📄</div>
+      <div class="doc-info">
+        <div class="doc-number">Doc 06</div>
+        <div class="doc-title">Documento Técnico Integral</div>
+        <div class="doc-desc">Especificaciones técnicas completas del proyecto</div>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  Documentación técnica del proyecto de obra · Uso confidencial
+</footer>
+
+</body>
+</html>
