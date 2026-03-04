@@ -290,23 +290,23 @@
 
 <body>
     <div class="doc-header">
-        <div class="label">Documento 03 &mdash; Revision 4 &mdash; Departamento de Presupuestos</div>
+        <div class="label">Documento 03 &mdash; Revision 5 &mdash; Departamento de Presupuestos</div>
         <h1>Presupuesto Profesional</h1>
-        <div class="subtitle">8 Unidades Hab. Modulares &mdash; Rev. 4: Mano de obra con adicional 50% por trabajo en
-            altura &mdash; Marzo 2026</div>
+        <div class="subtitle">8 Unidades Hab. Modulares &mdash; Rev. 5: Incorpora obligaciones legales UOCRA (ART, Fondo
+            Desempleo, SAC, Seguro Vida) &mdash; Marzo 2026</div>
     </div>
     <div class="gold-bar"></div>
     <div class="page">
 
         <div class="comparison">
             <div class="comp-box old">
-                <div class="c-label">Total Rev. 3 (Log. Extra-Muros)</div>
-                <div class="c-value">$101.530.800</div>
+                <div class="c-label">Total Rev. 4 (MOO + altura)</div>
+                <div class="c-value">$112.789.600</div>
             </div>
             <div class="comp-box new">
-                <div class="c-label">Total Rev. 4 (+ adicional altura)</div>
-                <div class="c-value">$112.789.600</div>
-                <div class="c-diff">+ $11.258.800 por adicional MOO en altura</div>
+                <div class="c-label">Total Rev. 5 (UOCRA completo)</div>
+                <div class="c-value">$127.787.703</div>
+                <div class="c-diff">+ $14.998.103 por obligaciones legales UOCRA</div>
             </div>
         </div>
 
@@ -496,13 +496,55 @@
             </tbody>
         </table>
 
-        <h2>3. Resumen Financiero</h2>
+        <h2>3. Obligaciones Legales UOCRA</h2>
         <table>
             <thead>
                 <tr>
                     <th>Concepto</th>
-                    <th>Rev. 3</th>
-                    <th>Rev. 4 (MOO + altura)</th>
+                    <th>Base de C&aacute;lculo</th>
+                    <th>%</th>
+                    <th>Total Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="new-item">
+                    <td>ART &mdash; Seguro Riesgo del Trabajo (altura)</td>
+                    <td>$53.397.500 MOO</td>
+                    <td>5,5%</td>
+                    <td>$2.936.863</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Fondo de Desempleo UOCRA (Art. 15 CCT 76/75)</td>
+                    <td>12% mensual s/ n&oacute;mina</td>
+                    <td>12%/mes</td>
+                    <td>$5.914.800</td>
+                </tr>
+                <tr class="new-item">
+                    <td>SAC proporcional &mdash; Aguinaldo (3 meses)</td>
+                    <td>$16.430.000 n&oacute;mina mensual</td>
+                    <td>25%</td>
+                    <td>$4.107.500</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Seguro de Vida Colectivo Obligatorio</td>
+                    <td>12 personas &times; $12.000/mes &times; 3 meses</td>
+                    <td>&mdash;</td>
+                    <td>$432.000</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3">TOTAL OBLIGACIONES UOCRA</td>
+                    <td>$13.391.163</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Resumen Financiero</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Rev. 4</th>
+                    <th>Rev. 5 (UOCRA completo)</th>
                 </tr>
             </thead>
             <tbody>
@@ -512,34 +554,39 @@
                     <td>$30.259.500</td>
                 </tr>
                 <tr>
-                    <td>Mano de Obra</td>
-                    <td>$43.345.000</td>
-                    <td><strong>$53.397.500</strong></td>
+                    <td>Mano de Obra (con adicional altura)</td>
+                    <td>$53.397.500</td>
+                    <td>$53.397.500</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Obligaciones UOCRA (ART + FD + SAC + Seguro vida)</td>
+                    <td>&mdash;</td>
+                    <td><strong>$13.391.163</strong></td>
                 </tr>
                 <tr>
                     <td>Log&iacute;stica de Obra (equipos)</td>
                     <td>$1.970.000</td>
                     <td>$1.970.000</td>
                 </tr>
-                <tr class="new-item">
+                <tr>
                     <td>Log&iacute;stica Extra-Muros (Jun&iacute;n&rarr;Hughes)</td>
                     <td>$15.078.000</td>
                     <td>$15.078.000</td>
                 </tr>
                 <tr>
                     <td>Subtotal Directo</td>
-                    <td>$90.652.500</td>
-                    <td><strong>$100.705.000</strong></td>
+                    <td>$100.705.000</td>
+                    <td><strong>$114.096.163</strong></td>
                 </tr>
                 <tr>
                     <td>Gastos Generales (12%)</td>
-                    <td>$10.878.300</td>
-                    <td><strong>$12.084.600</strong></td>
+                    <td>$12.084.600</td>
+                    <td><strong>$13.691.540</strong></td>
                 </tr>
                 <tr class="total">
                     <td>TOTAL GENERAL</td>
-                    <td>$101.530.800</td>
-                    <td><strong>$112.789.600</strong></td>
+                    <td>$112.789.600</td>
+                    <td><strong>$127.787.703</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -561,32 +608,32 @@
             <div class="pago-card">
                 <div class="p-num">1 Cuota &mdash; Anticipo</div>
                 <div class="p-pct">30%</div>
-                <div class="p-monto">$33.836.880</div>
+                <div class="p-monto">$38.336.311</div>
                 <div class="p-when">A la firma del contrato</div>
             </div>
             <div class="pago-card">
                 <div class="p-num">2 Cuota &mdash; Avance</div>
                 <div class="p-pct">40%</div>
-                <div class="p-monto">$45.115.840</div>
+                <div class="p-monto">$51.115.081</div>
                 <div class="p-when">Inicio Mes 2, losa terminada</div>
             </div>
             <div class="pago-card">
                 <div class="p-num">3 Cuota &mdash; Final</div>
                 <div class="p-pct">30%</div>
-                <div class="p-monto">$33.836.880</div>
+                <div class="p-monto">$38.336.311</div>
                 <div class="p-when">Entrega de obra</div>
             </div>
         </div>
 
         <div class="warning">
-            <strong>Nota Rev. 4:</strong> Se aplica adicional del <strong>50% sobre la mano de obra de Planta
-                Alta</strong> por tratarse de trabajo en altura. F&oacute;rmula: MOO_PA = m&sup2;_PB &times;
-            precio_unitario_PB &times; 1,5. Incremento total MOO: <strong>+$10.052.500</strong>. El rubro
-            Log&iacute;stica Extra-Muros (Ju&iacute;n&rarr;Hughes, $15.078.000) se mantiene. Ver Documento 05.
+            <strong>Nota Rev. 5:</strong> Se incorporan las <strong>obligaciones legales UOCRA</strong>: ART 5,5%
+            ($2.936.863), Fondo de Desempleo 12%/mes ($5.914.800), SAC proporcional 3 meses ($4.107.500) y Seguro de
+            Vida Colectivo ($432.000). Total nuevas obligaciones: <strong>+$13.391.163</strong>. Trabajo en altura PA
+            (+50%) y Log&iacute;stica Ju&iacute;n&rarr;Hughes incluidos desde Rev. 3/4.
         </div>
 
         <div class="doc-footer">
-            Presupuesto Profesional Rev. 4 &mdash; Proyecto 8 Unidades &mdash; Marzo 2026 &mdash; Documento 03 de 06
+            Presupuesto Profesional Rev. 5 &mdash; Proyecto 8 Unidades &mdash; Marzo 2026 &mdash; Documento 03 de 06
         </div>
     </div>
 </body>
