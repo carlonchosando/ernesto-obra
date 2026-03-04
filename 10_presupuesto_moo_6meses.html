@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Presupuesto MOO — Plan 6 Meses — Proyecto 8 Unidades</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --navy: #1a2744;
+            --navy-light: #2c3e6b;
+            --gold: #b8902a;
+            --gold-light: #f0d080;
+            --gray-bg: #f4f6f9;
+            --gray-line: #dde3ee;
+            --text: #222831;
+            --text-light: #5a6580;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #fff;
+            font-size: 12px;
+        }
+
+        .doc-header {
+            background: var(--navy);
+            color: white;
+            padding: 28px 50px;
+        }
+
+        .doc-header .label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 6px;
+        }
+
+        .doc-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .doc-header .subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .65);
+            margin-top: 5px;
+        }
+
+        .doc-header .meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .doc-header .meta-item {
+            font-size: 10px;
+        }
+
+        .doc-header .meta-item span {
+            display: block;
+            color: var(--gold-light);
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .badge-plan {
+            display: inline-block;
+            background: rgba(240, 208, 128, .2);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .gold-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+
+        .page {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 32px 50px;
+        }
+
+        .compare-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .compare-card {
+            border-radius: 7px;
+            padding: 14px 18px;
+            font-size: 11px;
+        }
+
+        .compare-card.old {
+            background: #f0f4ff;
+            border: 1px solid #c0cce8;
+        }
+
+        .compare-card.new {
+            background: #f0fff4;
+            border: 2px solid #2e7d32;
+        }
+
+        .compare-card .c-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .compare-card .c-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .compare-card.new .c-value {
+            color: #2e7d32;
+        }
+
+        .compare-card .c-diff {
+            font-size: 10px;
+            color: #2e7d32;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .compare-card .c-sub {
+            font-size: 9px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        h2 {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--navy);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            margin: 24px 0 12px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        h3 {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy-light);
+            margin: 16px 0 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px;
+            font-size: 11px;
+        }
+
+        thead tr {
+            background: var(--navy);
+            color: white;
+        }
+
+        thead th {
+            padding: 7px 9px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 9.5px;
+            letter-spacing: .3px;
+        }
+
+        thead th:not(:first-child) {
+            text-align: right;
+        }
+
+        tbody td {
+            padding: 6px 9px;
+            border-bottom: 1px solid var(--gray-line);
+        }
+
+        tbody td:not(:first-child) {
+            text-align: right;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--gray-bg);
+        }
+
+        tbody tr.new-item td {
+            background: #fffbf0;
+        }
+
+        tbody tr.total td {
+            font-weight: 700;
+            background: var(--navy);
+            color: white;
+            font-size: 11.5px;
+        }
+
+        tbody tr.subtotal td {
+            font-weight: 600;
+            background: #e8ecf5;
+            color: var(--navy);
+        }
+
+        tbody tr.saving td {
+            background: #f0fff4;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .total-box {
+            background: var(--navy);
+            color: white;
+            border-radius: 8px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 18px 0;
+        }
+
+        .total-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .total-sub {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, .55);
+            margin-top: 3px;
+        }
+
+        .total-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .pagos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .pago-card {
+            border: 1px solid var(--gray-line);
+            border-radius: 7px;
+            padding: 14px 16px;
+            background: var(--gray-bg);
+            text-align: center;
+        }
+
+        .p-num {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .p-pct {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 4px 0;
+        }
+
+        .p-monto {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .p-when {
+            font-size: 9.5px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .warning {
+            background: #fff8e6;
+            border-left: 4px solid var(--gold);
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .alert-red {
+            background: #fff0f0;
+            border-left: 4px solid #c0392b;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .alert-blue {
+            background: #f0f4ff;
+            border-left: 4px solid var(--navy);
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.85;
+        }
+
+        .alert-green {
+            background: #f0fff4;
+            border-left: 4px solid #2e7d32;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .firma-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 28px 0 12px;
+        }
+
+        .firma-box {
+            border-top: 1px solid var(--text);
+            padding-top: 8px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        .firma-box strong {
+            display: block;
+            color: var(--text);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .doc-footer {
+            margin-top: 28px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-line);
+            text-align: center;
+            font-size: 9px;
+            color: var(--text-light);
+        }
+
+        @media print {
+            body {
+                font-size: 10.5px;
+            }
+
+            .doc-header,
+            .gold-bar,
+            thead tr,
+            .total-box,
+            .pago-card,
+            .compare-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                padding: 20px 32px;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                size: A4;
+                margin: 10mm 12mm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="doc-header">
+        <div class="label">Presupuesto de Mano de Obra &mdash; Propuesta Alternativa</div>
+        <h1>Mano de Obra &mdash; Plan 6 Meses &mdash; 8 Unidades Habitacionales</h1>
+        <div class="subtitle">Hughes, Santa Fe &mdash; Plazo extendido: 180 d&iacute;as / 26 semanas &mdash; Revision 6
+            &mdash; Marzo 2026</div>
+        <div class="badge-plan">🗓 Plan alternativo &mdash; Duraci&oacute;n 6 meses</div>
+        <div class="meta">
+            <div class="meta-item"><span>Constructor</span>Responsable de Obra</div>
+            <div class="meta-item"><span>Ubicaci&oacute;n</span>Hughes, Santa Fe</div>
+            <div class="meta-item"><span>Personal origen</span>Jun&iacute;n, Buenos Aires</div>
+            <div class="meta-item"><span>Duraci&oacute;n</span>180 d&iacute;as / 26 semanas</div>
+            <div class="meta-item"><span>Personal</span>8 operarios UOCRA</div>
+        </div>
+    </div>
+    <div class="gold-bar"></div>
+
+    <div class="page">
+
+        <!-- COMPARATIVA -->
+        <h2>Comparativa Plan 3 Meses vs Plan 6 Meses</h2>
+
+        <div class="compare-banner">
+            <div class="compare-card old">
+                <div class="c-label">Plan 3 meses (Doc. 09)</div>
+                <div class="c-value">$123.315.823</div>
+                <div class="c-sub">12 trabajadores &mdash; 13 semanas &mdash; urgencia alta</div>
+            </div>
+            <div class="compare-card new">
+                <div class="c-label">✅ Plan 6 meses (este documento)</div>
+                <div class="c-value">$113.731.890</div>
+                <div class="c-diff">Ahorro: $9.583.933 &mdash; 7,8% menos</div>
+                <div class="c-sub">8 trabajadores &mdash; 26 semanas &mdash; ritmo sostenido</div>
+            </div>
+        </div>
+
+        <div class="alert-green">
+            <strong>¿Por qu&eacute; el plan de 6 meses es m&aacute;s econ&oacute;mico?</strong><br>
+            Con mayor tiempo disponible, los precios unitarios de ejecuci&oacute;n se negocian <strong>un 20% m&aacute;s
+                bajos</strong>:
+            no existe prima de urgencia, el equipo trabaja en ritmo sostenido sin horas extra, y la calidad de
+            terminaci&oacute;n
+            es mayor (menos rework). El ahorro en MOO es de <strong>$10.679.500</strong>, parcialmente offset por la
+            mayor
+            duraci&oacute;n de la log&iacute;stica de personal (+$6.138.000) y el SAC extendido.
+        </div>
+
+        <!-- MOO DETALLADA -->
+        <h2>1. Mano de Obra &mdash; Detalle por Rubro (Precios Plan 6 Meses)</h2>
+
+        <p style="margin-bottom:10px;color:var(--text-light);font-size:10.5px;">
+            Precios unitarios con <strong>reducci&oacute;n del 20%</strong> respecto al plan de 3 meses por ausencia de
+            prima de urgencia.
+            Adicional de <strong>+50% en Planta Alta</strong> se mantiene (es por riesgo de altura, no por velocidad).
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rubro</th>
+                    <th style="text-align:right">Cant.</th>
+                    <th style="text-align:right">Precio 3m</th>
+                    <th style="text-align:right">Precio 6m (-20%)</th>
+                    <th style="text-align:right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Platea y Estructura &mdash; PB (2 losas independientes)</td>
+                    <td>128 m&sup2;</td>
+                    <td>$15.000</td>
+                    <td>$12.000</td>
+                    <td>$1.536.000</td>
+                </tr>
+                <tr>
+                    <td>Mamposteria PB (350 m&sup2;) &mdash; nivel suelo</td>
+                    <td>350 m&sup2;</td>
+                    <td>$8.500</td>
+                    <td>$6.800</td>
+                    <td>$2.380.000</td>
+                </tr>
+                <tr>
+                    <td>Mamposteria PA (350 m&sup2;) &mdash; en altura +50%</td>
+                    <td>350 m&sup2;</td>
+                    <td>$12.750</td>
+                    <td>$10.200</td>
+                    <td>$3.570.000</td>
+                </tr>
+                <tr>
+                    <td>Revoques PB (700 m&sup2;) &mdash; nivel suelo</td>
+                    <td>700 m&sup2;</td>
+                    <td>$14.500</td>
+                    <td>$11.600</td>
+                    <td>$8.120.000</td>
+                </tr>
+                <tr>
+                    <td>Revoques PA (700 m&sup2;) &mdash; en altura +50%</td>
+                    <td>700 m&sup2;</td>
+                    <td>$21.750</td>
+                    <td>$17.400</td>
+                    <td>$12.180.000</td>
+                </tr>
+                <tr>
+                    <td>Pisos y Revestimientos PB (120 m&sup2;)</td>
+                    <td>120 m&sup2;</td>
+                    <td>$12.000</td>
+                    <td>$9.600</td>
+                    <td>$1.152.000</td>
+                </tr>
+                <tr>
+                    <td>Pisos y Revestimientos PA (120 m&sup2;) &mdash; +50%</td>
+                    <td>120 m&sup2;</td>
+                    <td>$18.000</td>
+                    <td>$14.400</td>
+                    <td>$1.728.000</td>
+                </tr>
+                <tr>
+                    <td>Pintura PB (700 m&sup2;) &mdash; nivel suelo</td>
+                    <td>700 m&sup2;</td>
+                    <td>$8.000</td>
+                    <td>$6.400</td>
+                    <td>$4.480.000</td>
+                </tr>
+                <tr>
+                    <td>Pintura PA (700 m&sup2;) &mdash; en altura +50%</td>
+                    <td>700 m&sup2;</td>
+                    <td>$12.000</td>
+                    <td>$9.600</td>
+                    <td>$6.720.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Escalera HA &mdash; moldaje y llenado</td>
+                    <td>1 tramo</td>
+                    <td>$400.000</td>
+                    <td>$320.000</td>
+                    <td>$320.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Baranda Met&aacute;lica &mdash; colocaci&oacute;n</td>
+                    <td>10 ml</td>
+                    <td>$150.000</td>
+                    <td>$120.000</td>
+                    <td>$120.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Impermeabilizaci&oacute;n losa del puente (altura)</td>
+                    <td>20 m&sup2;</td>
+                    <td>$10.000</td>
+                    <td>$8.000</td>
+                    <td>$160.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Pavimento pasaje interior entre bloques (PB)</td>
+                    <td>35 m&sup2;</td>
+                    <td>$9.000</td>
+                    <td>$7.200</td>
+                    <td>$252.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Coordinaci&oacute;n t&eacute;cnica, direcci&oacute;n y recursos especializados</td>
+                    <td colspan="3">&mdash;</td>
+                    <td>$21.359.000</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="4">TOTAL MANO DE OBRA &mdash; Plan 6 meses</td>
+                    <td>$64.077.000</td>
+                </tr>
+                <tr class="saving">
+                    <td colspan="4">Ahorro vs Plan 3 meses ($80.096.250)</td>
+                    <td>&minus;$16.019.250</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- UOCRA -->
+        <h2>2. Obligaciones Legales UOCRA &mdash; 26 Semanas</h2>
+
+        <p style="margin-bottom:10px;color:var(--text-light);font-size:10.5px;">
+            El SAC aumenta respecto al plan de 3 meses (6 meses de obra = 1 SAC completo). El Fondo de Desempleo
+            se extiende por 6 cuotas mensuales. La ART se calcula sobre la n&oacute;mina real de 8 personas.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Base</th>
+                    <th style="text-align:right">%</th>
+                    <th style="text-align:right">Plan 3m</th>
+                    <th style="text-align:right">Plan 6m</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ART &mdash; Seguro Riesgo del Trabajo (altura)</td>
+                    <td>MOO base</td>
+                    <td>5,5%</td>
+                    <td>$2.936.863</td>
+                    <td>$2.349.490</td>
+                </tr>
+                <tr>
+                    <td>Fondo de Desempleo UOCRA (Art. 15 CCT 76/75)</td>
+                    <td>N&oacute;mina mensual</td>
+                    <td>12%/mes &times; 6</td>
+                    <td>$5.914.800</td>
+                    <td>$4.731.840</td>
+                </tr>
+                <tr>
+                    <td>SAC proporcional &mdash; Aguinaldo</td>
+                    <td>N&oacute;mina mensual</td>
+                    <td>50% (6/12)</td>
+                    <td>$4.107.500</td>
+                    <td>$6.572.000</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3">TOTAL OBLIGACIONES UOCRA</td>
+                    <td>$12.959.163</td>
+                    <td>$13.653.330</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- LOGÍSTICA -->
+        <h2>3. Log&iacute;stica de Personal &mdash; 8 Personas &mdash; 26 Semanas</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Detalle</th>
+                    <th style="text-align:right">Plan 3m</th>
+                    <th style="text-align:right">Plan 6m</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alojamiento (8 personas, precio negociado a 6 meses)</td>
+                    <td>$400.000/mes &times; 6</td>
+                    <td>$1.350.000</td>
+                    <td>$2.400.000</td>
+                </tr>
+                <tr>
+                    <td>Alimentaci&oacute;n completa (8 personas, 180 d&iacute;as)</td>
+                    <td>$12.000/pers/d&iacute;a &times; 8 &times; 180</td>
+                    <td>$12.960.000</td>
+                    <td>$17.280.000</td>
+                </tr>
+                <tr>
+                    <td>Transporte Jun&iacute;n &harr; Hughes (2 viajes/sem &times; 26 sem)</td>
+                    <td>120 km &times; 2 &times; 26</td>
+                    <td>$768.000</td>
+                    <td>$1.536.000</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="2">TOTAL LOG&Iacute;STICA EXTRA-MUROS</td>
+                    <td>$15.078.000</td>
+                    <td>$21.216.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- RESUMEN FINANCIERO -->
+        <h2>4. Resumen Financiero &mdash; Mano de Obra Sin Instalaciones</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Plan 3 meses</th>
+                    <th style="text-align:right">Plan 6 meses</th>
+                    <th style="text-align:right">Diferencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mano de Obra (incl. coordinaci&oacute;n y direcci&oacute;n)</td>
+                    <td>$80.096.250</td>
+                    <td>$64.077.000</td>
+                    <td style="color:#2e7d32">&minus;$16.019.250</td>
+                </tr>
+                <tr>
+                    <td>Obligaciones Legales UOCRA</td>
+                    <td>$12.959.163</td>
+                    <td>$13.653.330</td>
+                    <td style="color:#c0392b">+$694.167</td>
+                </tr>
+                <tr>
+                    <td>Log&iacute;stica Extra-Muros (aloj. + alim. + transp.)</td>
+                    <td>$15.078.000</td>
+                    <td>$21.216.000</td>
+                    <td style="color:#c0392b">+$6.138.000</td>
+                </tr>
+                <tr>
+                    <td>Log&iacute;stica interna de obra (equipos 26 sem.)</td>
+                    <td>$1.970.000</td>
+                    <td>$2.600.000</td>
+                    <td style="color:#c0392b">+$630.000</td>
+                </tr>
+                <tr class="subtotal">
+                    <td>Subtotal Directo</td>
+                    <td>$110.103.413</td>
+                    <td>$101.546.330</td>
+                    <td style="color:#2e7d32"><strong>&minus;$8.557.083</strong></td>
+                </tr>
+                <tr>
+                    <td>Gastos Generales y Administraci&oacute;n (12%)</td>
+                    <td>$13.212.410</td>
+                    <td>$12.185.560</td>
+                    <td style="color:#2e7d32">&minus;$1.026.850</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL MANO DE OBRA &mdash; SIN INSTALACIONES</td>
+                    <td>$123.315.823</td>
+                    <td>$113.731.890</td>
+                    <td style="color:#2e7d32"><strong>&minus;$9.583.933</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-box">
+            <div>
+                <div class="total-label">Total MOO &mdash; Plan 6 Meses &mdash; Sin Instalaciones</div>
+                <div class="total-sub">Sin materiales ni instalaciones (agua / gas / electricidad). Incluye jornales,
+                    UOCRA, coordinaci&oacute;n t&eacute;cnica y log&iacute;stica Jun&iacute;n&rarr;Hughes 26 semanas.
+                </div>
+            </div>
+            <div style="text-align:right">
+                <div class="total-value">$113.731.890</div>
+                <div class="total-sub">ARS &mdash; Validez 7 d&iacute;as &mdash; Marzo 2026</div>
+            </div>
+        </div>
+
+        <!-- PLAN DE PAGOS -->
+        <h2>Plan de Pagos &mdash; Mano de Obra 6 Meses</h2>
+
+        <div class="pagos-grid">
+            <div class="pago-card">
+                <div class="p-num">1&ordf; Cuota &mdash; Anticipo</div>
+                <div class="p-pct">30%</div>
+                <div class="p-monto">$34.119.567</div>
+                <div class="p-when">A la firma del contrato</div>
+            </div>
+            <div class="pago-card">
+                <div class="p-num">2&ordf; Cuota &mdash; Avance</div>
+                <div class="p-pct">40%</div>
+                <div class="p-monto">$45.492.756</div>
+                <div class="p-when">Inicio Mes 3 &mdash; estructura terminada</div>
+            </div>
+            <div class="pago-card">
+                <div class="p-num">3&ordf; Cuota &mdash; Final</div>
+                <div class="p-pct">30%</div>
+                <div class="p-monto">$34.119.567</div>
+                <div class="p-when">Entrega de obra &mdash; inspecci&oacute;n final</div>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>Nota Rev. 6 &mdash; Plan 6 Meses:</strong> Los precios unitarios de mano de obra reflejan una
+            <strong>reducci&oacute;n del 20%</strong> al no existir prima de urgencia.
+            El adicional del <strong>50% por trabajo en altura</strong> (Planta Alta) se mantiene.
+            La log&iacute;stica de personal aumenta por mayor duraci&oacute;n (26 semanas, 8 personas).
+            <strong>Sin instalaciones (agua / gas / electricidad).</strong>
+            El SAC proporcional equivale al 50% (6/12) del salario anual por extenderse al semestre completo.
+        </div>
+
+        <!-- FLUJO SEMANAL -->
+        <h2>Flujo de Caja Semanal &mdash; Plan 6 Meses</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Plan 3 meses/sem</th>
+                    <th style="text-align:right">Plan 6 meses/sem</th>
+                    <th style="text-align:right">Diferencia/sem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jornales + coordinaci&oacute;n</td>
+                    <td>$6.161.250</td>
+                    <td>$2.464.500</td>
+                    <td style="color:#2e7d32">&minus;$3.696.750</td>
+                </tr>
+                <tr>
+                    <td>Obligaciones UOCRA (prorrateo)</td>
+                    <td>$996.859</td>
+                    <td>$524.743</td>
+                    <td style="color:#2e7d32">&minus;$472.116</td>
+                </tr>
+                <tr>
+                    <td>Log&iacute;stica Extra-Muros (8 pers.)</td>
+                    <td>$1.159.846</td>
+                    <td>$815.923</td>
+                    <td style="color:#2e7d32">&minus;$343.923</td>
+                </tr>
+                <tr class="subtotal">
+                    <td><strong>TOTAL SEMANAL A DISPONER</strong></td>
+                    <td><strong>$8.317.955</strong></td>
+                    <td><strong>$3.805.166</strong></td>
+                    <td style="color:#2e7d32"><strong>&minus;$4.512.789/sem</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="alert-green">
+            <strong>Ventaja de flujo de caja del Plan 6 Meses:</strong> La erogaci&oacute;n semanal se reduce en
+            <strong>$4.512.789</strong> (54% menos por semana). Esto permite al comitente financiar la obra con menor
+            presi&oacute;n semanal de capital, aunque durante m&aacute;s semanas.
+        </div>
+
+        <!-- CLÁUSULA ICC -->
+        <h2>5. Cl&aacute;usula de Actualizaci&oacute;n &mdash; ICC / Petr&oacute;leo</h2>
+
+        <div class="alert-red">
+            <strong style="color:#c0392b;">⚠ Alerta de mercado &mdash; Marzo 2026:</strong>
+            En un plan de 6 meses, la exposici&oacute;n al alza del ICC y del petr&oacute;leo es
+            <strong>significativamente mayor</strong>: los precios acordados hoy pueden verse impactados por
+            2 actualizaciones paritarias UOCRA y 2 ciclos de revisi&oacute;n del ICC-INDEC dentro del plazo de obra.
+        </div>
+
+        <h3>5.1 Escenarios seg&uacute;n variaci&oacute;n ICC</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Escenario</th>
+                    <th style="text-align:right">ICC</th>
+                    <th style="text-align:right">Ajuste</th>
+                    <th style="text-align:right">Total Plan 3m ajustado</th>
+                    <th style="text-align:right">Total Plan 6m ajustado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>✅ Base</td>
+                    <td>0%</td>
+                    <td>&mdash;</td>
+                    <td>$123.315.823</td>
+                    <td><strong>$113.731.890</strong></td>
+                </tr>
+                <tr style="background:#fff8e6;">
+                    <td>⚠ Moderado</td>
+                    <td>+10%</td>
+                    <td>&mdash;</td>
+                    <td>$134.326.164</td>
+                    <td><strong>$125.105.079</strong></td>
+                </tr>
+                <tr style="background:#fff0f0;">
+                    <td>🔴 Severo</td>
+                    <td>+20%</td>
+                    <td>&mdash;</td>
+                    <td>$145.336.506</td>
+                    <td><strong>$136.478.268</strong></td>
+                </tr>
+                <tr style="background:#ffe0e0;">
+                    <td>🔴🔴 Cr&iacute;tico</td>
+                    <td>+30%</td>
+                    <td>&mdash;</td>
+                    <td>$156.346.847</td>
+                    <td><strong>$147.851.457</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.2 Cl&aacute;usula de Revisi&oacute;n de Precios (texto contractual)</h3>
+
+        <div class="alert-blue">
+            <strong>CL&Aacute;USULA DE ACTUALIZACI&Oacute;N &mdash; PLAN 6 MESES:</strong><br><br>
+            Dado el plazo extendido de ejecuci&oacute;n (180 d&iacute;as), los precios del presente presupuesto
+            est&aacute;n sujetos a <strong>revisi&oacute;n trimestral</strong> conforme al ICC-INDEC.
+            Si el &iacute;ndice variara m&aacute;s del <strong>5%</strong> en cualquier trimestre, se
+            aplicar&aacute; un ajuste proporcional a los rubros de mano de obra pendientes de ejecuci&oacute;n.<br><br>
+
+            Los jornales UOCRA se actualizar&aacute;n autom&aacute;ticamente ante cualquier acuerdo paritario
+            homologado durante la ejecuci&oacute;n. El comitente acepta este mecanismo como condici&oacute;n
+            para la contrataci&oacute;n bajo el presente plan de 6 meses.<br><br>
+
+            Los costos de log&iacute;stica (combustible, alojamiento, alimentaci&oacute;n) ser&aacute;n revisables
+            si el precio del petr&oacute;leo o el &iacute;ndice de precios mirista superan un <strong>15%</strong>
+            de variaci&oacute;n acumulada desde la firma del contrato.
+        </div>
+
+        <!-- FIRMAS -->
+        <div class="firma-grid">
+            <div class="firma-box">
+                <strong>Constructor / Responsable de Obra</strong>
+                Responsable de Obra<br>
+                Firma y aclaraci&oacute;n &mdash; Fecha: ___/___/______
+            </div>
+            <div class="firma-box">
+                <strong>Comitente / Propietario</strong>
+                &nbsp;<br>
+                Firma y aclaraci&oacute;n &mdash; Fecha: ___/___/______
+            </div>
+        </div>
+
+        <div class="doc-footer">
+            Presupuesto MOO &mdash; Plan 6 Meses Rev. 6 &mdash; Proyecto 8 Unidades &mdash; Hughes, Santa Fe &mdash;
+            Marzo 2026 &mdash; Documento 10 de 10 &mdash; No incluye materiales ni instalaciones
+        </div>
+
+    </div>
+</body>
+
+</html>
