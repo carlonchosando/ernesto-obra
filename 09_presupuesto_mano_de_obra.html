@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Presupuesto Mano de Obra — Proyecto 8 Unidades</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --navy: #1a2744;
+            --navy-light: #2c3e6b;
+            --gold: #b8902a;
+            --gold-light: #f0d080;
+            --gray-bg: #f4f6f9;
+            --gray-line: #dde3ee;
+            --text: #222831;
+            --text-light: #5a6580;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #fff;
+            font-size: 12px;
+        }
+
+        .doc-header {
+            background: var(--navy);
+            color: white;
+            padding: 28px 50px;
+        }
+
+        .doc-header .label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 6px;
+        }
+
+        .doc-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .doc-header .subtitle {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 5px;
+        }
+
+        .doc-header .meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 14px;
+        }
+
+        .doc-header .meta-item {
+            font-size: 10px;
+        }
+
+        .doc-header .meta-item span {
+            display: block;
+            color: var(--gold-light);
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .gold-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+
+        .page {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 32px 50px;
+        }
+
+        h2 {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--navy);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            margin: 24px 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy-light);
+            margin: 16px 0 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 16px;
+            font-size: 11px;
+        }
+
+        thead tr {
+            background: var(--navy);
+            color: white;
+        }
+
+        thead th {
+            padding: 7px 9px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 9.5px;
+            letter-spacing: 0.3px;
+        }
+
+        thead th:not(:first-child) {
+            text-align: right;
+        }
+
+        tbody td {
+            padding: 6px 9px;
+            border-bottom: 1px solid var(--gray-line);
+        }
+
+        tbody td:not(:first-child) {
+            text-align: right;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--gray-bg);
+        }
+
+        tbody tr.new-item td {
+            background: #fffbf0;
+        }
+
+        tbody tr.total td {
+            font-weight: 700;
+            background: var(--navy);
+            color: white;
+            font-size: 11.5px;
+        }
+
+        tbody tr.subtotal td {
+            font-weight: 600;
+            background: #e8ecf5;
+            color: var(--navy);
+        }
+
+        /* Total box */
+        .total-box {
+            background: var(--navy);
+            color: white;
+            border-radius: 8px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 18px 0;
+        }
+
+        .total-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .total-sub {
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, 0.55);
+            margin-top: 3px;
+        }
+
+        .total-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        /* Plan de pagos */
+        .pagos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .pago-card {
+            border: 1px solid var(--gray-line);
+            border-radius: 7px;
+            padding: 14px 16px;
+            background: var(--gray-bg);
+            text-align: center;
+        }
+
+        .p-num {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .p-pct {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 4px 0;
+        }
+
+        .p-monto {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .p-when {
+            font-size: 9.5px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Alert / warning */
+        .warning {
+            background: #fff8e6;
+            border-left: 4px solid var(--gold);
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .alert-red {
+            background: #fff0f0;
+            border-left: 4px solid #c0392b;
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .alert-blue {
+            background: #f0f4ff;
+            border-left: 4px solid var(--navy);
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-size: 11px;
+            line-height: 1.85;
+        }
+
+        /* Firma */
+        .firma-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 28px 0 12px;
+        }
+
+        .firma-box {
+            border-top: 1px solid var(--text);
+            padding-top: 8px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-light);
+        }
+
+        .firma-box strong {
+            display: block;
+            color: var(--text);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .doc-footer {
+            margin-top: 28px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-line);
+            text-align: center;
+            font-size: 9px;
+            color: var(--text-light);
+        }
+
+        @media print {
+            body {
+                font-size: 10.5px;
+            }
+
+            .doc-header,
+            .gold-bar,
+            thead tr,
+            .total-box,
+            .pago-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                padding: 20px 32px;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            .firma-grid {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                size: A4;
+                margin: 10mm 12mm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="doc-header">
+        <div class="label">Presupuesto de Mano de Obra &mdash; Uso Exclusivo</div>
+        <h1>Mano de Obra &mdash; 8 Unidades Habitacionales</h1>
+        <div class="subtitle">Hughes, Santa Fe &mdash; Plazo de ejecuci&oacute;n: 90 d&iacute;as (13 semanas) &mdash;
+            Revision 6 &mdash; Marzo 2026</div>
+        <div class="meta">
+            <div class="meta-item"><span>Constructor</span>Alejandro Ferreira</div>
+            <div class="meta-item"><span>Ubicaci&oacute;n obra</span>Hughes, Santa Fe</div>
+            <div class="meta-item"><span>Personal origen</span>Jun&iacute;n, Buenos Aires</div>
+            <div class="meta-item"><span>Duraci&oacute;n</span>90 d&iacute;as / 13 semanas</div>
+            <div class="meta-item"><span>Personal</span>12 operarios UOCRA</div>
+        </div>
+    </div>
+    <div class="gold-bar"></div>
+
+    <div class="page">
+
+        <!-- SECCIÓN 1: MOO DETALLADA -->
+        <h2>1. Mano de Obra &mdash; Detalle por Rubro</h2>
+
+        <p style="margin-bottom:10px; color:var(--text-light); font-size:10.5px;">
+            Los rubros de Planta Alta (PA) incluyen <strong>adicional del 50%</strong> sobre el precio unitario de
+            Planta Baja
+            por tratarse de trabajo en altura (andamiaje, seguridad y logística de altura).
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rubro</th>
+                    <th style="text-align:right">Cant.</th>
+                    <th style="text-align:right">Precio Unitario</th>
+                    <th style="text-align:right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Platea y Estructura &mdash; PB (2 losas independientes)</td>
+                    <td>128 m&sup2;</td>
+                    <td>$15.000</td>
+                    <td>$1.920.000</td>
+                </tr>
+                <tr>
+                    <td>Mamposteria PB (350 m&sup2;) &mdash; nivel suelo</td>
+                    <td>350 m&sup2;</td>
+                    <td>$8.500</td>
+                    <td>$2.975.000</td>
+                </tr>
+                <tr>
+                    <td>Mamposteria PA (350 m&sup2;) &mdash; en altura +50%</td>
+                    <td>350 m&sup2;</td>
+                    <td>$12.750</td>
+                    <td>$4.462.500</td>
+                </tr>
+                <tr>
+                    <td>Revoques PB (700 m&sup2;) &mdash; nivel suelo</td>
+                    <td>700 m&sup2;</td>
+                    <td>$14.500</td>
+                    <td>$10.150.000</td>
+                </tr>
+                <tr>
+                    <td>Revoques PA (700 m&sup2;) &mdash; en altura +50%</td>
+                    <td>700 m&sup2;</td>
+                    <td>$21.750</td>
+                    <td>$15.225.000</td>
+                </tr>
+                <tr>
+                    <td>Pisos y Revestimientos PB (120 m&sup2;)</td>
+                    <td>120 m&sup2;</td>
+                    <td>$12.000</td>
+                    <td>$1.440.000</td>
+                </tr>
+                <tr>
+                    <td>Pisos y Revestimientos PA (120 m&sup2;) &mdash; +50%</td>
+                    <td>120 m&sup2;</td>
+                    <td>$18.000</td>
+                    <td>$2.160.000</td>
+                </tr>
+                <tr>
+                    <td>Pintura PB (700 m&sup2;) &mdash; nivel suelo</td>
+                    <td>700 m&sup2;</td>
+                    <td>$8.000</td>
+                    <td>$5.600.000</td>
+                </tr>
+                <tr>
+                    <td>Pintura PA (700 m&sup2;) &mdash; en altura +50%</td>
+                    <td>700 m&sup2;</td>
+                    <td>$12.000</td>
+                    <td>$8.400.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Escalera HA &mdash; moldaje y llenado</td>
+                    <td>1 tramo</td>
+                    <td>$400.000</td>
+                    <td>$400.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Baranda Met&aacute;lica &mdash; colocaci&oacute;n</td>
+                    <td>10 ml</td>
+                    <td>$150.000</td>
+                    <td>$150.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Impermeabilizaci&oacute;n losa del puente (altura)</td>
+                    <td>20 m&sup2;</td>
+                    <td>$10.000</td>
+                    <td>$200.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Pavimento pasaje interior entre bloques (PB)</td>
+                    <td>35 m&sup2;</td>
+                    <td>$9.000</td>
+                    <td>$315.000</td>
+                </tr>
+                <tr class="new-item">
+                    <td>Coordinaci&oacute;n t&eacute;cnica, direcci&oacute;n y recursos especializados</td>
+                    <td colspan="2">&mdash;</td>
+                    <td>$26.698.750</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3">TOTAL MANO DE OBRA</td>
+                    <td>$80.096.250</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECCIÓN 2: OBLIGACIONES UOCRA -->
+        <h2>2. Obligaciones Legales UOCRA</h2>
+
+        <p style="margin-bottom:10px; color:var(--text-light); font-size:10.5px;">
+            Conceptos de cumplimiento obligatorio conforme CCT UOCRA 76/75 y legislaci&oacute;n laboral vigente.
+            Son adicionales al jornal y est&aacute;n a cargo del empleador.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Base de C&aacute;lculo</th>
+                    <th style="text-align:right">%</th>
+                    <th style="text-align:right">Total Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ART &mdash; Seguro Riesgo del Trabajo (con cobertura en altura)</td>
+                    <td>$80.096.250 MOO</td>
+                    <td>5,5%</td>
+                    <td>$2.936.863</td>
+                </tr>
+                <tr>
+                    <td>Fondo de Desempleo UOCRA (Art. 15 CCT 76/75)</td>
+                    <td>N&oacute;mina mensual</td>
+                    <td>12%/mes</td>
+                    <td>$5.914.800</td>
+                </tr>
+                <tr>
+                    <td>SAC proporcional &mdash; Aguinaldo (3 meses de obra)</td>
+                    <td>N&oacute;mina mensual</td>
+                    <td>25% (3/12)</td>
+                    <td>$4.107.500</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3">TOTAL OBLIGACIONES UOCRA</td>
+                    <td>$12.959.163</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECCIÓN 3: LOGÍSTICA DE PERSONAL -->
+        <h2>3. Log&iacute;stica de Personal &mdash; Jun&iacute;n &rarr; Hughes</h2>
+
+        <p style="margin-bottom:10px; color:var(--text-light); font-size:10.5px;">
+            El personal de obra proviene de Jun&iacute;n (BA) y trabaja de lunes a s&aacute;bado en Hughes (SF), a 120
+            km de distancia.
+            El empleador asume los costos de traslado, alojamiento y subsistencia durante los 90 d&iacute;as.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Detalle</th>
+                    <th style="text-align:right">Total 90 d&iacute;as</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Alojamiento &mdash; casa en Hughes (12 personas)</td>
+                    <td>$450.000/mes &times; 3 meses</td>
+                    <td>$1.350.000</td>
+                </tr>
+                <tr>
+                    <td>Alimentaci&oacute;n completa (12 personas)</td>
+                    <td>$12.000/persona/d&iacute;a &times; 90 d&iacute;as &times; 12</td>
+                    <td>$12.960.000</td>
+                </tr>
+                <tr>
+                    <td>Transporte Jun&iacute;n &harr; Hughes (combustible + mantenimiento)</td>
+                    <td>120 km &times; 2 viajes/semana &times; 13 semanas</td>
+                    <td>$768.000</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="2">TOTAL LOG&Iacute;STICA EXTRA-MUROS</td>
+                    <td>$15.078.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECCIÓN 4: RESUMEN FINANCIERO MOO -->
+        <h2>4. Resumen Financiero &mdash; Mano de Obra</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th style="text-align:right">Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mano de Obra (incl. coordinaci&oacute;n t&eacute;cnica y direcci&oacute;n)</td>
+                    <td>$80.096.250</td>
+                </tr>
+                <tr>
+                    <td>Obligaciones Legales UOCRA (ART + Fondo Desempleo + SAC)</td>
+                    <td>$12.959.163</td>
+                </tr>
+                <tr>
+                    <td>Log&iacute;stica Extra-Muros Jun&iacute;n &rarr; Hughes (aloj. + alim. + transp.)</td>
+                    <td>$15.078.000</td>
+                </tr>
+                <tr>
+                    <td>Log&iacute;stica interna de obra (equipos y herramientas)</td>
+                    <td>$1.970.000</td>
+                </tr>
+                <tr class="subtotal">
+                    <td>Subtotal Directo Mano de Obra</td>
+                    <td>$110.103.413</td>
+                </tr>
+                <tr>
+                    <td>Gastos Generales y Administraci&oacute;n (12%)</td>
+                    <td>$13.212.410</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL MANO DE OBRA &mdash; LLAVE EN MANO</td>
+                    <td>$123.315.823</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-box">
+            <div>
+                <div class="total-label">Total Mano de Obra &mdash; Revision 6 &mdash; Llave en Mano</div>
+                <div class="total-sub">Sin materiales. Incluye jornales, UOCRA, coordinaci&oacute;n t&eacute;cnica y
+                    log&iacute;stica Jun&iacute;n&rarr;Hughes.</div>
+            </div>
+            <div style="text-align:right">
+                <div class="total-value">$123.315.823</div>
+                <div class="total-sub">ARS &mdash; Validez 7 d&iacute;as &mdash; Marzo 2026</div>
+            </div>
+        </div>
+
+        <!-- PLAN DE PAGOS MOO -->
+        <h2>Plan de Pagos &mdash; Mano de Obra</h2>
+
+        <div class="pagos-grid">
+            <div class="pago-card">
+                <div class="p-num">1&ordf; Cuota &mdash; Anticipo</div>
+                <div class="p-pct">30%</div>
+                <div class="p-monto">$36.994.747</div>
+                <div class="p-when">A la firma del contrato</div>
+            </div>
+            <div class="pago-card">
+                <div class="p-num">2&ordf; Cuota &mdash; Avance</div>
+                <div class="p-pct">40%</div>
+                <div class="p-monto">$49.326.329</div>
+                <div class="p-when">Inicio Mes 2 &mdash; losa terminada</div>
+            </div>
+            <div class="pago-card">
+                <div class="p-num">3&ordf; Cuota &mdash; Final</div>
+                <div class="p-pct">30%</div>
+                <div class="p-monto">$36.994.747</div>
+                <div class="p-when">Entrega de obra &mdash; inspecci&oacute;n final</div>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>Nota Rev. 6:</strong> El total de Mano de Obra refleja jornales escala UOCRA con adicional
+            del <strong>50% por trabajo en altura</strong> (Planta Alta), obligaciones legales completas
+            (ART cobertura altura, Fondo Desempleo, SAC proporcional) y log&iacute;stica de personal
+            Jun&iacute;n&rarr;Hughes durante los 90 d&iacute;as de ejecuci&oacute;n.
+            <strong>Los materiales de construcci&oacute;n est&aacute;n excluidos de este presupuesto.</strong>
+        </div>
+
+        <!-- CLÁUSULA ICC / PETRÓLEO MOO -->
+        <h2>5. Cl&aacute;usula de Actualizaci&oacute;n de Precios &mdash; Variaci&oacute;n ICC / Petr&oacute;leo</h2>
+
+        <div class="alert-red">
+            <strong style="color:#c0392b;">⚠ Alerta de mercado &mdash; Marzo 2026:</strong>
+            El precio internacional del barr&iacute;l de petr&oacute;leo registra incremento sostenido por contexto
+            geopo&iacute;tico. Se anticipa impacto en el &Iacute;ndice del Costo de la Construcci&oacute;n
+            (<strong>ICC-INDEC</strong>) en los pr&oacute;ximos 30&ndash;60 d&iacute;as, afectando
+            directamente los costos de <strong>transporte, alojamiento y log&iacute;stica de personal</strong>.
+        </div>
+
+        <h3>5.1 Rubros de MOO impactados por el precio del petr&oacute;leo</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rubro</th>
+                    <th style="text-align:right">Monto base</th>
+                    <th style="text-align:right">Impacto +20% petr&oacute;leo</th>
+                    <th style="text-align:right">Exposici&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Combustible Jun&iacute;n &harr; Hughes (2 viajes sem. &times; 13 sem.)</td>
+                    <td>$648.000</td>
+                    <td>+$129.600</td>
+                    <td>Alta / directa</td>
+                </tr>
+                <tr>
+                    <td>Alojamiento (puede ajustarse por inflaci&oacute;n local)</td>
+                    <td>$1.350.000</td>
+                    <td>+$135.000</td>
+                    <td>Media</td>
+                </tr>
+                <tr>
+                    <td>Alimentaci&oacute;n (ligada a inflaci&oacute;n general)</td>
+                    <td>$12.960.000</td>
+                    <td>+$1.296.000</td>
+                    <td>Media / alta</td>
+                </tr>
+                <tr>
+                    <td>Jornales UOCRA (actualizaci&oacute;n trimestral por paritaria)</td>
+                    <td>$53.397.500</td>
+                    <td>Variable seg&uacute;n acuerdo</td>
+                    <td>Alta si hay paritaria</td>
+                </tr>
+                <tr class="subtotal">
+                    <td colspan="2">Impacto directo estimado (+20% en insumos log&iacute;sticos)</td>
+                    <td>+$1.560.600</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.2 Escenarios presupuestarios seg&uacute;n variaci&oacute;n ICC</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Escenario</th>
+                    <th style="text-align:right">Variaci&oacute;n ICC</th>
+                    <th style="text-align:right">Ajuste sobre subtotal MOO</th>
+                    <th style="text-align:right">Total MOO Ajustado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>✅ Base (actual &mdash; Marzo 2026)</td>
+                    <td>0%</td>
+                    <td>&mdash;</td>
+                    <td><strong>$123.315.823</strong></td>
+                </tr>
+                <tr style="background:#fff8e6;">
+                    <td>⚠ Moderado</td>
+                    <td>+10%</td>
+                    <td>+$11.010.341</td>
+                    <td><strong>$134.326.164</strong></td>
+                </tr>
+                <tr style="background:#fff0f0;">
+                    <td>🔴 Severo</td>
+                    <td>+20%</td>
+                    <td>+$22.020.683</td>
+                    <td><strong>$145.336.506</strong></td>
+                </tr>
+                <tr style="background:#ffe0e0;">
+                    <td>🔴🔴 Cr&iacute;tico</td>
+                    <td>+30%</td>
+                    <td>+$33.031.024</td>
+                    <td><strong>$156.346.847</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- CLÁUSULA CONTRACTUAL -->
+        <h3>5.3 Cl&aacute;usula de Revisi&oacute;n de Precios (texto contractual)</h3>
+
+        <div class="alert-blue">
+            <strong>CL&Aacute;USULA DE ACTUALIZACI&Oacute;N &mdash; MANO DE OBRA:</strong><br><br>
+            Los precios del presente presupuesto de mano de obra tienen <strong>validez de 7 (siete) d&iacute;as
+                corridos
+                desde la fecha de emisi&oacute;n</strong>. Pasado dicho plazo, si el &Iacute;ndice del Costo de la
+            Construcci&oacute;n (<strong>ICC</strong>) publicado mensualmente por INDEC registrara variaciones
+            superiores al <strong>5%</strong> respecto del mes base (Marzo 2026), los valores de mano de obra,
+            log&iacute;stica y traslados ser&aacute;n actualizados <strong>proporcionalmente</strong> antes de la
+            firma del contrato.<br><br>
+
+            El comitente reconoce que los jornales UOCRA est&aacute;n sujetos a revisi&oacute;n paritaria
+            trimestral. En caso de acuerdo paritario que modifique la escala salarial durante la ejecuci&oacute;n
+            de la obra, el constructor quedar&aacute; habilitado a solicitar la actualizaci&oacute;n proporcional
+            de los valores contratados.<br><br>
+
+            El incremento en el precio internacional del petr&oacute;leo impacta directamente en los costos de
+            <strong>combustible, transporte y subsistencia del personal</strong>. Ante variaciones superiores al
+            <strong>10%</strong> en dichos insumos durante la ejecuci&oacute;n, el constructor podr&aacute;
+            solicitar revisi&oacute;n de los rubros de log&iacute;stica, los cuales ser&aacute;n actualizados
+            por mutuo acuerdo documentado entre las partes.
+        </div>
+
+        <!-- FIRMAS -->
+        <div class="firma-grid">
+            <div class="firma-box">
+                <strong>Constructor / Responsable de Obra</strong>
+                Alejandro Ferreira<br>
+                Firma y aclaraci&oacute;n &mdash; Fecha: ___/___/______
+            </div>
+            <div class="firma-box">
+                <strong>Comitente / Propietario</strong>
+                &nbsp;<br>
+                Firma y aclaraci&oacute;n &mdash; Fecha: ___/___/______
+            </div>
+        </div>
+
+        <div class="doc-footer">
+            Presupuesto de Mano de Obra Rev. 6 &mdash; Proyecto 8 Unidades &mdash; Hughes, Santa Fe &mdash; Marzo 2026
+            &mdash; Documento 09 de 09 &mdash; Uso confidencial &mdash; No incluye materiales
+        </div>
+
+    </div>
+</body>
+
+</html>
