@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Herramientas y Equipos — Proyecto 8 Unidades</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --navy: #1a2744;
+            --navy-light: #2c3e6b;
+            --gold: #b8902a;
+            --gold-light: #f0d080;
+            --gray-bg: #f4f6f9;
+            --gray-line: #dde3ee;
+            --text: #222831;
+            --text-light: #5a6580;
+            --green: #2e7d32;
+            --green-bg: #f0f7e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #fff;
+            font-size: 11px;
+        }
+
+        /* ── HEADER ── */
+        .doc-header {
+            background: var(--navy);
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .doc-header .label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 4px;
+        }
+
+        .doc-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .doc-header .subtitle {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+        }
+
+        .gold-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+
+        /* ── PAGE ── */
+        .page {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 24px 40px 32px;
+        }
+
+        /* ── SECTION TITLE ── */
+        h2 {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--navy);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 4px;
+            margin: 20px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--navy-light);
+            margin: 14px 0 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* ── TABLA ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 6px 0 14px;
+            font-size: 10px;
+        }
+
+        thead tr {
+            background: var(--navy);
+            color: white;
+        }
+
+        thead th {
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 9px;
+        }
+
+        thead th:not(:first-child) {
+            text-align: center;
+        }
+
+        tbody td {
+            padding: 5px 8px;
+            border-bottom: 1px solid var(--gray-line);
+        }
+
+        tbody td:not(:first-child) {
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--gray-bg);
+        }
+
+        tbody tr.critical td {
+            background: #fff3cd;
+        }
+
+        tbody tr.critical td:first-child::before {
+            content: "⚠ ";
+            color: #e6a817;
+        }
+
+        tbody tr.total td {
+            font-weight: 700;
+            background: #e8ecf5;
+            color: var(--navy);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 10px;
+        }
+
+        .tag-compra {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .tag-alquiler {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag-mixto {
+            background: #fff8e1;
+            color: #e65100;
+        }
+
+        /* ── RESUMEN ECONÓMICO ── */
+        .resumen-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .res-card {
+            border: 1px solid var(--gray-line);
+            border-radius: 6px;
+            padding: 10px 12px;
+            background: var(--gray-bg);
+            text-align: center;
+        }
+
+        .res-card.highlight {
+            border-left: 3px solid var(--gold);
+        }
+
+        .res-card .r-label {
+            font-size: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .res-card .r-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .res-card.highlight .r-value {
+            color: var(--gold);
+        }
+
+        .res-card .r-sub {
+            font-size: 8px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        /* ── ALERT ── */
+        .alert {
+            background: #fff3cd;
+            border-left: 3px solid #e6a817;
+            padding: 8px 12px;
+            border-radius: 3px;
+            margin: 10px 0;
+            font-size: 10px;
+        }
+
+        .alert strong {
+            color: #8a5a00;
+        }
+
+        /* ── FOOTER ── */
+        .doc-footer {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray-line);
+            text-align: center;
+            font-size: 8px;
+            color: var(--text-light);
+        }
+
+        /* ── PRINT ── */
+        @media print {
+            body {
+                font-size: 9.5px;
+            }
+
+            .doc-header,
+            .gold-bar,
+            thead tr,
+            .res-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                padding: 16px 28px;
+            }
+
+            h2 {
+                margin: 14px 0 8px;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                size: A4;
+                margin: 12mm 14mm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="doc-header">
+        <div class="label">Documento 08 &mdash; Maestro Mayor de Obra</div>
+        <h1>Herramientas y Equipos de Obra</h1>
+        <div class="subtitle">8 Unidades Habitacionales &mdash; Hughes, Santa Fe &mdash; 90 D&iacute;as &mdash; Marzo
+            2026</div>
+    </div>
+    <div class="gold-bar"></div>
+
+    <div class="page">
+
+        <!-- MES 1 -->
+        <h2>Mes 1 &mdash; Estructura y Cimientos</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Herramienta / Equipo</th>
+                    <th>Cant.</th>
+                    <th>Compra unit.</th>
+                    <th>Alquiler/mes</th>
+                    <th>Modalidad</th>
+                    <th>Observaci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="critical">
+                    <td>Hormigonera 130L</td>
+                    <td>2</td>
+                    <td>$280.000</td>
+                    <td>$80.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Uso diario continuo</td>
+                </tr>
+                <tr class="critical">
+                    <td>Vibrador de hormig&oacute;n</td>
+                    <td>1</td>
+                    <td>$150.000</td>
+                    <td>$45.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Platea + entrepiso</td>
+                </tr>
+                <tr>
+                    <td>Nivel l&aacute;ser rotativo</td>
+                    <td>1</td>
+                    <td>$180.000</td>
+                    <td>$60.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Replanteo y control cotas</td>
+                </tr>
+                <tr>
+                    <td>Encofrado (tablones + tirantes)</td>
+                    <td>1 lote</td>
+                    <td>$350.000</td>
+                    <td>$90.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Reutilizable platea/escalera</td>
+                </tr>
+                <tr>
+                    <td>Carretillas volcadoras</td>
+                    <td>4</td>
+                    <td>$35.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Acarreo de mezcla</td>
+                </tr>
+                <tr>
+                    <td>Palas / picos / azadas</td>
+                    <td>8</td>
+                    <td>$15.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Sin reemplazo</td>
+                </tr>
+                <tr>
+                    <td>Hilo de obra, plomadas, cintas</td>
+                    <td>4 sets</td>
+                    <td>$6.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Consumibles de replanteo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- MES 2 -->
+        <h2>Mes 2 &mdash; Entrepiso, Cubierta y Mampostería Alta</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Herramienta / Equipo</th>
+                    <th>Cant.</th>
+                    <th>Compra unit.</th>
+                    <th>Alquiler/mes</th>
+                    <th>Modalidad</th>
+                    <th>Observaci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="critical">
+                    <td>Andamio tubular (con tablones)</td>
+                    <td>8–10 marcos</td>
+                    <td>$60.000</td>
+                    <td>$25.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td><strong>Cr&iacute;tico — meses 2 y 3. ART obligatorio.</strong></td>
+                </tr>
+                <tr class="critical">
+                    <td>Malacate / motocarga el&eacute;ctrico</td>
+                    <td>1</td>
+                    <td>$220.000</td>
+                    <td>$75.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Sube viguetas y materiales PA</td>
+                </tr>
+                <tr>
+                    <td>Apuntalamiento met&aacute;lico</td>
+                    <td>20 puntales</td>
+                    <td>$18.000</td>
+                    <td>$5.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>21 d&iacute;as post-llenado (obligatorio)</td>
+                </tr>
+                <tr>
+                    <td>Amoladora 9&quot;</td>
+                    <td>2</td>
+                    <td>$65.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Corte ladrillo, hierro, chapa</td>
+                </tr>
+                <tr>
+                    <td>Taladro percutor / SDS</td>
+                    <td>2</td>
+                    <td>$85.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Anclajes y pases instalaciones</td>
+                </tr>
+                <tr>
+                    <td>L&iacute;nea de vida / arn&eacute;s de seguridad</td>
+                    <td>2 kits</td>
+                    <td>$45.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td><strong>Obligatorio ART altura</strong></td>
+                </tr>
+                <tr>
+                    <td>Nivel de burbuja 1,2m</td>
+                    <td>4</td>
+                    <td>$12.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Un nivel por oficial</td>
+                </tr>
+                <tr>
+                    <td>Llana, fratacho, escofi&oacute;n (sets)</td>
+                    <td>6 sets</td>
+                    <td>$8.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Un set por oficial alba&ntilde;il</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- MES 3 -->
+        <h2>Mes 3 &mdash; Revoques, Pisos y Pintura</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Herramienta / Equipo</th>
+                    <th>Cant.</th>
+                    <th>Compra unit.</th>
+                    <th>Alquiler/mes</th>
+                    <th>Modalidad</th>
+                    <th>Observaci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="critical">
+                    <td>Proyectora de revoque / enlucidora</td>
+                    <td>1</td>
+                    <td>$850.000</td>
+                    <td>$180.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td><strong>1.400 m² en 30 d&iacute;as. Sin ella el plazo colapsa.</strong></td>
+                </tr>
+                <tr class="critical">
+                    <td>Pistola airless (pintura)</td>
+                    <td>1</td>
+                    <td>$320.000</td>
+                    <td>$90.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>1.400 m² de pintura en 2 manos</td>
+                </tr>
+                <tr>
+                    <td>Cortadora de cer&aacute;mica (mesa)</td>
+                    <td>1</td>
+                    <td>$180.000</td>
+                    <td>$55.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>240 m² pisos y revestimientos</td>
+                </tr>
+                <tr>
+                    <td>Lijadora de pared el&eacute;ctrica</td>
+                    <td>2</td>
+                    <td>$55.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Masilla / enduido 1.400 m²</td>
+                </tr>
+                <tr>
+                    <td>Escaleras de aluminio 3m</td>
+                    <td>3</td>
+                    <td>$45.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Pintura techos interiores</td>
+                </tr>
+                <tr>
+                    <td>Llana dentada + esponja cer&aacute;mica</td>
+                    <td>6 sets</td>
+                    <td>$6.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Colocaci&oacute;n pisos y revestimientos</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- EQUIPOS GENERALES -->
+        <h2>Equipos Generales &mdash; Toda la Obra</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Cant.</th>
+                    <th>Compra</th>
+                    <th>Alquiler 3 meses</th>
+                    <th>Modalidad</th>
+                    <th>Observaci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="critical">
+                    <td>Generador 7kVA</td>
+                    <td>1</td>
+                    <td>$650.000</td>
+                    <td>$270.000</td>
+                    <td><span class="tag tag-alquiler">ALQUILER</span></td>
+                    <td>Si no hay acometida el&eacute;ctrica provisoria</td>
+                </tr>
+                <tr>
+                    <td>Tanque de agua 1.000L + bomba</td>
+                    <td>1</td>
+                    <td>$85.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Obligatorio (reserva para mezclas)</td>
+                </tr>
+                <tr>
+                    <td>Manguera de goma 30m</td>
+                    <td>2</td>
+                    <td>$18.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Abastecimiento agua en obra</td>
+                </tr>
+                <tr>
+                    <td>Caja de herramientas + candado</td>
+                    <td>2</td>
+                    <td>$30.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td>Custodiar herramientas personales</td>
+                </tr>
+                <tr>
+                    <td>Botiqu&iacute;n tipo A + extintor ABC 5kg</td>
+                    <td>1 cada uno</td>
+                    <td>$35.000</td>
+                    <td>&mdash;</td>
+                    <td><span class="tag tag-compra">COMPRA</span></td>
+                    <td><strong>Obligatorio ART / Higiene y Seguridad</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- RESUMEN ECONÓMICO -->
+        <h2>Resumen Econ&oacute;mico</h2>
+
+        <div class="resumen-grid">
+            <div class="res-card">
+                <div class="r-label">Todo en alquiler</div>
+                <div class="r-value">≈ $2.450.000</div>
+                <div class="r-sub">+ consumibles compra</div>
+            </div>
+            <div class="res-card highlight">
+                <div class="r-label">✅ Mixto recomendado</div>
+                <div class="r-value">≈ $1.750.000</div>
+                <div class="r-sub">Alquiler pesados + compra menores</div>
+            </div>
+            <div class="res-card">
+                <div class="r-label">Compra total</div>
+                <div class="r-value">≈ $4.800.000</div>
+                <div class="r-sub">No recomendado para 90 días</div>
+            </div>
+        </div>
+
+        <div class="alert">
+            <strong>Presupuesto asignado &ldquo;Log&iacute;stica de Obra (equipos)&rdquo;: $1.970.000</strong> &mdash;
+            La estrategia <strong>mixta</strong> se ajusta a este margen. Priorizar el alquiler de la <strong>proyectora
+                de revoque</strong>,
+            <strong>andamios</strong> y <strong>malacate</strong> desde el inicio del Mes 2.
+        </div>
+
+        <!-- HERRAMIENTAS CRÍTICAS -->
+        <h2>Alerta de Herramientas Cr&iacute;ticas para el Plazo</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Herramienta</th>
+                    <th>Sin ella...</th>
+                    <th>Impacto en plazo</th>
+                    <th>Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="critical">
+                    <td>Proyectora de revoque</td>
+                    <td>Revoque manual 1.400 m²</td>
+                    <td>+15 a +20 d&iacute;as extra</td>
+                    <td>Reservar antes del D&iacute;a 45</td>
+                </tr>
+                <tr class="critical">
+                    <td>Andamio perimetral</td>
+                    <td>Imposible trabajar en altura</td>
+                    <td>Obra parada = 0 avance</td>
+                    <td>Contratar desde inicio Mes 2</td>
+                </tr>
+                <tr class="critical">
+                    <td>Malacate / motocarga</td>
+                    <td>Subida manual de viguetas</td>
+                    <td>+3 d&iacute;as de retraso</td>
+                    <td>Incluir en contrato de alquiler</td>
+                </tr>
+                <tr>
+                    <td>Vibrador de hormig&oacute;n</td>
+                    <td>Platea con cangrejeras</td>
+                    <td>Rehacer losa = +30 d&iacute;as</td>
+                    <td>Imprescindible D&iacute;a 1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="doc-footer">
+            Documento 08 &mdash; Herramientas y Equipos &mdash; Proyecto 8 Unidades &mdash; Marzo 2026 &mdash; Para uso
+            interno &mdash; Alejandro Ferreira Constructor
+        </div>
+
+    </div>
+</body>
+
+</html>
